@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">📊 Monthly GST Summary</div>
+
+<div class="container">
+
+    <!-- 📅 Filter -->
+    <div class="card">
+        <form method="get">
+            <input type="month" name="month" required>
+            <button type="submit">View</button>
+        </form>
+    </div>
+
+    <!-- 📊 Table -->
+    <div class="card">
+        <h3>Month: {{ month }}</h3>
+
+        {% if rows %}
+        <table>
+            <tr>
+                <th>GST %</th>
+                <th>Taxable Value</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total</th>
+            </tr>
+
+            {% for r in rows %}
+            <tr>
+                <td>{{ r[0] }}%</td>
+                <td>₹{{ r[1] }}</td>
+                <td>₹{{ r[2] }}</td>
+                <td>₹{{ r[3] }}</td>
+                <td>₹{{ r[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No data found</p>
+        {% endif %}
+    </div>
+
+    <a href="/">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

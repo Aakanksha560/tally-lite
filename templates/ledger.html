@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Party Ledger</title>
+</head>
+<body>
+
+<h2>{{ party[1] }}</h2>
+
+<p>
+GSTIN:
+{{ party[2] or 'N/A' }}
+</p>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>Invoice No</th>
+    <th>Date</th>
+    <th>Total</th>
+</tr>
+
+{% for sale in sales %}
+<tr>
+    <td>{{ sale[0] }}</td>
+    <td>{{ sale[1] }}</td>
+    <td>₹{{ sale[2] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<h3>
+Total Sales:
+₹{{ total_sales }}
+</h3>
+
+<a href="/party">
+Back
+</a>
+
+</body>
+</html>

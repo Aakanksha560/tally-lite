@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Financial Year Report</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f9;
+            padding:20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th, td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+            text-align:left;
+        }
+
+        h2{
+            margin-top:0;
+        }
+
+        select{
+            padding:10px;
+        }
+
+        button{
+            padding:10px 15px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>📈 Financial Year Report</h2>
+
+<form method="GET">
+
+    <select name="fy">
+
+        <option value="2024"
+        {% if fy=='2024' %}selected{% endif %}>
+            FY 2024-25
+        </option>
+
+        <option value="2025"
+        {% if fy=='2025' %}selected{% endif %}>
+            FY 2025-26
+        </option>
+
+        <option value="2026"
+        {% if fy=='2026' %}selected{% endif %}>
+            FY 2026-27
+        </option>
+
+    </select>
+
+    <button type="submit">
+        Show Report
+    </button>
+
+</form>
+
+{% if sales %}
+
+<table>
+
+<tr>
+    <th>Invoice No</th>
+    <th>Date</th>
+    <th>Customer</th>
+    <th>Total</th>
+</tr>
+
+{% for s in sales %}
+<tr>
+
+    <td>{{ s[0] }}</td>
+    <td>{{ s[1] }}</td>
+    <td>{{ s[2] }}</td>
+    <td>
+        ₹{{ "%.2f"|format(s[3]) }}
+    </td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+<h3>
+    Total Sales:
+    ₹{{ "%.2f"|format(total_sales) }}
+</h3>
+
+{% endif %}
+
+<br>
+
+<a href="/">
+    ⬅ Back To Home
+</a>
+
+</div>
+</div>
+
+</body>
+</html>

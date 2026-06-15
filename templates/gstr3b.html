@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSTR-3B Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">📄 GSTR-3B Summary</div>
+
+<div class="container">
+
+    <!-- 📅 Filter -->
+    <div class="card">
+        <form method="get">
+            <input type="month" name="month" required>
+            <button type="submit">View</button>
+        </form>
+    </div>
+
+    <!-- 🧾 Outward Supplies -->
+    <div class="card">
+        <h3>Outward Supplies (Sales)</h3>
+        <p>Taxable Value: ₹{{ taxable_sales }}</p>
+        <p>CGST: ₹{{ output_cgst }}</p>
+        <p>SGST: ₹{{ output_sgst }}</p>
+    </div>
+
+    <!-- 📦 Input Tax Credit -->
+    <div class="card">
+        <h3>Input Tax Credit (Purchase)</h3>
+        <p>CGST: ₹{{ input_cgst }}</p>
+        <p>SGST: ₹{{ input_sgst }}</p>
+    </div>
+
+    <!-- 💰 Net Payable -->
+    <div class="card">
+        <h3>Net GST Payable</h3>
+        <p>CGST: ₹{{ net_cgst }}</p>
+        <p>SGST: ₹{{ net_sgst }}</p>
+        <h2>Total Payable: ₹{{ total_payable }}</h2>
+    </div>
+
+    <a href="/">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

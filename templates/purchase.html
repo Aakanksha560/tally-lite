@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Entry</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:20px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        input, select{
+            padding:10px;
+            margin:5px;
+            width:220px;
+        }
+
+        button{
+            padding:10px 15px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>📦 Purchase Entry</h2>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="invoice_no"
+                placeholder="Purchase Invoice Number"
+                required
+            >
+
+            <input
+                type="date"
+                name="purchase_date"
+                required
+            >
+
+            <br>
+
+            <select name="party_id" required>
+                <option value="">
+                    Select Supplier
+                </option>
+
+                {% for p in parties %}
+                    {% if p[3] == 'supplier' %}
+                        <option value="{{ p[0] }}">
+                            {{ p[1] }}
+                            {% if p[2] %}
+                                ({{ p[2] }})
+                            {% endif %}
+                        </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <br><br>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Product Name"
+                required
+            >
+
+            <input
+                type="number"
+                name="qty"
+                placeholder="Quantity"
+                required
+            >
+
+            <input
+                type="number"
+                step="0.01"
+                name="price"
+                placeholder="Price"
+                required
+            >
+
+            <input
+                type="number"
+                step="0.01"
+                name="gst_rate"
+                placeholder="GST %"
+                required
+            >
+
+            <input
+                type="text"
+                name="hsn_code"
+                placeholder="HSN Code"
+            >
+
+            <br><br>
+
+            <button type="submit">
+                Save Purchase
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="/">
+            ⬅ Back To Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

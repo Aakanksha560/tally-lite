@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+</head>
+<body>
+
+<h2>GST Settings</h2>
+
+<form method="POST">
+    <input type="number" step="0.01" name="cgst" value="{{ settings[1] }}" placeholder="CGST %">
+    <input type="number" step="0.01" name="sgst" value="{{ settings[2] }}" placeholder="SGST %">
+    <button type="submit">Save</button>
+</form>
+
+<a href="/">Back</a>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSTR-1 Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">📊 GSTR-1 Report</div>
+
+<div class="container">
+
+    <!-- 📥 Export Button -->
+    <div class="card">
+        <a href="/export/gstr1">
+            <button>📥 Download Excel</button>
+        </a>
+    </div>
+
+    <!-- 🔵 B2B Section -->
+    <div class="card">
+        <h2>🧾 B2B Sales (With GSTIN)</h2>
+
+        {% if b2b %}
+        <table>
+            <tr>
+                <th>GST %</th>
+                <th>Taxable Value</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total</th>
+            </tr>
+
+            {% for r in b2b %}
+            <tr>
+                <td>{{ r[0] }}%</td>
+                <td>₹{{ r[1] }}</td>
+                <td>₹{{ r[2] }}</td>
+                <td>₹{{ r[3] }}</td>
+                <td>₹{{ r[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No B2B data available</p>
+        {% endif %}
+    </div>
+
+    <!-- 🟢 B2C Section -->
+    <div class="card">
+        <h2>🛒 B2C Sales (Without GSTIN)</h2>
+
+        {% if b2c %}
+        <table>
+            <tr>
+                <th>GST %</th>
+                <th>Taxable Value</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total</th>
+            </tr>
+
+            {% for r in b2c %}
+            <tr>
+                <td>{{ r[0] }}%</td>
+                <td>₹{{ r[1] }}</td>
+                <td>₹{{ r[2] }}</td>
+                <td>₹{{ r[3] }}</td>
+                <td>₹{{ r[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No B2C data available</p>
+        {% endif %}
+    </div>
+
+    <!-- 🔙 Back -->
+    <a href="/">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>

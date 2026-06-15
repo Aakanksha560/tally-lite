@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tally Lite GST Billing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+        }
+
+        .navbar{
+            background:#1f2937;
+            color:white;
+            padding:15px;
+            font-size:24px;
+            font-weight:bold;
+        }
+
+        .container{
+            width:95%;
+            margin:auto;
+            margin-top:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            margin-top:0;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        table th,
+        table td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+            text-align:left;
+        }
+
+        table th{
+            background:#f3f4f6;
+        }
+
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+            gap:15px;
+        }
+
+        .box{
+            background:#f9fafb;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        .box h3{
+            margin:0;
+            font-size:16px;
+            color:#555;
+        }
+
+        .box p{
+            font-size:24px;
+            margin-top:10px;
+            font-weight:bold;
+        }
+
+        .nav-links a{
+            text-decoration:none;
+            margin-right:15px;
+            font-weight:bold;
+            display:inline-block;
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    📊 Tally Lite GST Billing
+</div>
+
+<div class="container">
+
+    <!-- Dashboard -->
+    <div class="card">
+
+        <h2>📊 Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="box">
+                <h3>Today's Sales</h3>
+                <p>
+                    ₹{{ "%.2f"|format(today_sales) }}
+                </p>
+            </div>
+
+            <div class="box">
+                <h3>Today's Purchases</h3>
+                <p>
+                    ₹{{ "%.2f"|format(today_purchase) }}
+                </p>
+            </div>
+
+            <div class="box">
+                <h3>Total Products</h3>
+                <p>
+                    {{ total_products }}
+                </p>
+            </div>
+
+            <div class="box">
+                <h3>Low Stock Items</h3>
+                <p>
+                    {{ low_stock }}
+                </p>
+            </div>
+
+            <div class="box">
+                <h3>GST Payable</h3>
+                <p>
+                    ₹{{ "%.2f"|format(gst_payable) }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Inventory -->
+    <div class="card">
+
+        <h2>📦 Inventory</h2>
+
+        <table>
+
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>GST %</th>
+                <th>HSN</th>
+            </tr>
+
+            {% for p in products %}
+            <tr>
+
+                <td>{{ p[1] }}</td>
+
+                <td>
+                    ₹{{ "%.2f"|format(p[2]) }}
+                </td>
+
+                <td>{{ p[3] }}</td>
+
+                <td>{{ p[4] }}%</td>
+
+                <td>
+                    {{ p[5] or '-' }}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="card nav-links">
+
+        <a href="/sale">🧾 Sales</a>
+
+        <a href="/purchase">📦 Purchase</a>
+
+        <a href="/party">👥 Parties</a>
+
+        <a href="/company">🏢 Company</a>
+
+        <a href="/settings">⚙️ GST Settings</a>
+
+        <a href="/monthly">📈 Monthly Report</a>
+
+        <a href="/purchase-summary">
+            📦 Purchase Summary
+        </a>
+
+        <a href="/financial-year">
+            📈 Financial Year Report
+        </a>
+
+        <a href="/gstr1">📊 GSTR-1</a>
+
+        <a href="/gstr3b">📄 GSTR-3B</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

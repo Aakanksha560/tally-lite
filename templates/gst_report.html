@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GST Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">📊 GST Report</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3>Output GST (Sales)</h3>
+        <p>CGST: ₹{{ output_cgst }}</p>
+        <p>SGST: ₹{{ output_sgst }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Input GST (Purchase)</h3>
+        <p>CGST: ₹{{ input_cgst }}</p>
+        <p>SGST: ₹{{ input_sgst }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Net GST Payable</h3>
+        <p>CGST: ₹{{ net_cgst }}</p>
+        <p>SGST: ₹{{ net_sgst }}</p>
+        <h2>Total Payable: ₹{{ total_payable }}</h2>
+    </div>
+
+    <a href="/">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

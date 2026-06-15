@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Summary</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            margin-top:0;
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th,
+        table td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+            text-align:center;
+        }
+
+        table th{
+            background:#f3f4f6;
+        }
+
+        .total-row{
+            font-weight:bold;
+            background:#f9fafb;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        .back{
+            margin-top:20px;
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>📦 Purchase Summary</h2>
+
+        <table>
+
+            <tr>
+                <th>GST %</th>
+                <th>Taxable Value</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total</th>
+            </tr>
+
+            {% set grand_taxable = 0 %}
+            {% set grand_cgst = 0 %}
+            {% set grand_sgst = 0 %}
+            {% set grand_total = 0 %}
+
+            {% for row in rows %}
+
+            <tr>
+
+                <td>{{ row[0] }}%</td>
+
+                <td>
+                    ₹{{ "%.2f"|format(row[1] or 0) }}
+                </td>
+
+                <td>
+                    ₹{{ "%.2f"|format(row[2] or 0) }}
+                </td>
+
+                <td>
+                    ₹{{ "%.2f"|format(row[3] or 0) }}
+                </td>
+
+                <td>
+                    ₹{{ "%.2f"|format(row[4] or 0) }}
+                </td>
+
+            </tr>
+
+            {% set grand_taxable = grand_taxable + (row[1] or 0) %}
+            {% set grand_cgst = grand_cgst + (row[2] or 0) %}
+            {% set grand_sgst = grand_sgst + (row[3] or 0) %}
+            {% set grand_total = grand_total + (row[4] or 0) %}
+
+            {% endfor %}
+
+            <tr class="total-row">
+                <td>Total</td>
+                <td>₹{{ "%.2f"|format(grand_taxable) }}</td>
+                <td>₹{{ "%.2f"|format(grand_cgst) }}</td>
+                <td>₹{{ "%.2f"|format(grand_sgst) }}</td>
+                <td>₹{{ "%.2f"|format(grand_total) }}</td>
+            </tr>
+
+        </table>
+
+        <a href="/" class="back">
+            ⬅ Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parties</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            width: 220px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .customer {
+            color: green;
+            font-weight: bold;
+        }
+
+        .supplier {
+            color: orange;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .ledger-btn {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Add Party -->
+    <div class="card">
+
+        <h2>👥 Add Party</h2>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Party Name"
+                required
+            >
+
+            <input
+                type="text"
+                name="gstin"
+                placeholder="GSTIN"
+            >
+
+            <select name="type" required>
+                <option value="">Select Type</option>
+                <option value="customer">Customer</option>
+                <option value="supplier">Supplier</option>
+            </select>
+
+            <button type="submit">
+                Add Party
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Party List -->
+    <div class="card">
+
+        <h2>📋 All Parties</h2>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>GSTIN</th>
+                <th>Type</th>
+                <th>Ledger</th>
+            </tr>
+
+            {% for p in parties %}
+            <tr>
+
+                <td>{{ p[0] }}</td>
+
+                <td>{{ p[1] }}</td>
+
+                <td>
+                    {{ p[2] or '-' }}
+                </td>
+
+                <td>
+                    {% if p[3] == 'customer' %}
+                        <span class="customer">
+                            Customer
+                        </span>
+                    {% else %}
+                        <span class="supplier">
+                            Supplier
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    {% if p[3] == 'customer' %}
+
+                        <a
+                            href="/ledger/{{ p[0] }}"
+                            class="ledger-btn"
+                        >
+                            📒 Customer Ledger
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="/supplier-ledger/{{ p[0] }}"
+                            class="ledger-btn"
+                        >
+                            📦 Supplier Ledger
+                        </a>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <a href="/" class="back">
+            ⬅ Back To Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
