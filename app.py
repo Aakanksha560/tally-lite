@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_file, redirect
+import os
 import sqlite3
 from openpyxl import Workbook
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
@@ -6,6 +7,9 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 
 app = Flask(__name__)
+
+if not os.path.exists("database.db"):
+    import init_db
 
 def get_db():
     return sqlite3.connect("database.db")
